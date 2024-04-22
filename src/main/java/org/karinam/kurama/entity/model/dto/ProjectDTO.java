@@ -1,6 +1,7 @@
 package org.karinam.kurama.entity.model.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.karinam.kurama.entity.model.Project;
 import org.karinam.kurama.entity.model.ProjectComponent;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ProjectDTO {
     private Long id;
 
@@ -25,8 +27,11 @@ public class ProjectDTO {
         this.name = project.getProjectName();
         this.description = project.getDescription();
         this.projectComponents = new ArrayList<>();
-        for (ProjectComponent projectComponent : project.getProjectComponents()) {
-            this.projectComponents.add(new ProjectComponentDTO(projectComponent));
+        if (project.getProjectComponents() != null) {
+            for (ProjectComponent projectComponent : project.getProjectComponents()) {
+                this.projectComponents.add(new ProjectComponentDTO(projectComponent));
+            }
         }
+
     }
 }

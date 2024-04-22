@@ -20,9 +20,15 @@ import java.util.Optional;
 public class ProjectService {
     private final ProjectRepository repository;
 
-    public Project saveProject(Project project) {
-        return repository.save(project);
+    public ProjectDTO saveProject(ProjectDTO projectDTO){
+        Project project = new Project();
+        project.setProjectName(projectDTO.getName());
+        project.setDescription(projectDTO.getDescription());
+        return new ProjectDTO(repository.save(project));
     }
+    //public Project saveProject(Project project) {
+   //     return repository.save(project);
+   // }
 
 //    public Project getByProjectName(String projectName) {
 //        return repository.findByProjectName(projectName).orElseThrow(() -> new UsernameNotFoundException("Project не найден"));

@@ -16,8 +16,8 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @PostMapping("/save")
-    public Project saveProject(@RequestBody Project project){
-        return projectService.saveProject(project);
+    public ProjectDTO saveProject(@RequestBody ProjectDTO projectDTO){
+        return projectService.saveProject(projectDTO);
     }
 
     @GetMapping("/{projectId}")
