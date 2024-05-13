@@ -1,6 +1,9 @@
 package org.karinam.kurama.entity.model.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.karinam.kurama.entity.model.Project;
+import org.karinam.kurama.entity.model.ProjectComponent;
 import org.karinam.kurama.entity.model.Requirement;
 import org.karinam.kurama.entity.model.TestCase;
 
@@ -8,37 +11,46 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class TestCaseDTO {
     private Long id;
 
-    private List<Long> coveredRequirementsList;
-
     private String name;
 
-    private boolean isAutomated;
+    private String description;
 
-    private String result;
+    private Long projectId;
 
-    private String environment;
+    private Long projectComponentId;
 
-    private String prerequisites;
+    private String projectName;
 
-    private String postCondition;
+    private String projectComponentName;
 
-    //private List<StepsDTO> stepsDTOList;
+    private List<RequirementShortDTO> requirementShortDTOList;
 
-    public TestCaseDTO(TestCase testCase){
+
+    public TestCaseDTO(TestCase testCase) {
         this.id = testCase.getId();
         this.name = testCase.getTestCaseName();
-        this.isAutomated = testCase.isAutomated();
-        this.result = testCase.getResult();
-        this.environment = testCase.getEnvironment();
-        this.prerequisites = testCase.getPrerequisites();
-        this.postCondition = testCase.getPostCondition();
-        this.coveredRequirementsList = new ArrayList<>();
-        for (Requirement requirement : testCase.getRequirementsCovered()) {
-            this.coveredRequirementsList.add(requirement.getId());
+        this.description = testCase.getDescription();
+        this.requirementShortDTOList = new ArrayList<>();
+        if (testCase.getRequirements() != null) {
+            for (Requirement requirement : testCase.getRequirements()) {
+                this.requirementShortDTOList.add(new RequirementShortDTO(requirement));
+            }
+
+            if (!testCase.getRequirements().isEmpty()) {
+                Project project = testCase.getRequirements().getFirst().getProjectComponent().getProject();
+                this.projectName = project.getProjectName();
+                this.projectId = project.getId();
+                ProjectComponent projectComponent = testCase.getRequirements().getFirst().getProjectComponent();
+                this.projectComponentId = projectComponent.getId();
+                this.projectComponentName = projectComponent.getName();
+            }
         }
+
+
     }
 
 }

@@ -7,7 +7,11 @@ import org.karinam.kurama.entity.model.ProjectComponent;
 import org.karinam.kurama.entity.model.dto.ProjectComponentDTO;
 import org.karinam.kurama.repository.ProjectComponentRepository;
 import org.karinam.kurama.repository.ProjectRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -29,5 +33,13 @@ public class ProjectComponentService {
         return new ProjectComponentDTO(projectComponent);
     }
 
-
+    public List<ProjectComponentDTO> getAllProjectComponentDTO(){
+        List<ProjectComponentDTO> projectComponentDTOList = new ArrayList<>();
+        List<ProjectComponent> projectComponentList = projectComponentRepository.findAll(Sort.by(Sort.Direction.ASC,"id"));
+        projectComponentList.forEach(projectComponent -> {
+            ProjectComponentDTO projectComponentDTO = new ProjectComponentDTO(projectComponent);
+            projectComponentDTOList.add(projectComponentDTO);
+        });
+        return projectComponentDTOList;
+    }
 }

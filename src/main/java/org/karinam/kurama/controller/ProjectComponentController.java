@@ -5,6 +5,8 @@ import org.karinam.kurama.entity.model.dto.ProjectComponentDTO;
 import org.karinam.kurama.service.ProjectComponentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/project-component")
 @RequiredArgsConstructor
@@ -19,6 +21,10 @@ public class ProjectComponentController {
     @GetMapping("/{projectComponentId}")
     public ProjectComponentDTO getById(@PathVariable Long projectComponentId) {
         return projectComponentService.getProjectComponentById(projectComponentId);
+    }
+    @GetMapping("/all")
+    public List<ProjectComponentDTO>getAll(){
+        return projectComponentService.getAllProjectComponentDTO();
     }
 
 }

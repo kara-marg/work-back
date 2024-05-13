@@ -11,6 +11,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "requirement")
 public class Requirement {
     @Id
     @Column(name = "id")
@@ -28,9 +29,9 @@ public class Requirement {
     @JsonIgnore
     private ProjectComponent projectComponent;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "test_case_environment",
+            name = "test_case_requirement",
             joinColumns = @JoinColumn(name = "requirement_id"),
             inverseJoinColumns = @JoinColumn(name = "test_case_id"))
     private List<TestCase> testCases;

@@ -8,6 +8,7 @@ import org.karinam.kurama.entity.model.Requirement;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,6 +23,8 @@ public class ProjectComponentDTO {
 
     private Long projectId;
 
+    private String projectName;
+
     private List<RequirementDTO> requirements;
 
     public ProjectComponentDTO(ProjectComponent projectComponent) {
@@ -30,6 +33,7 @@ public class ProjectComponentDTO {
         this.description = projectComponent.getDescription();
         this.finished = projectComponent.getFinished();
         this.projectId = projectComponent.getProject().getId();
+        this.projectName = projectComponent.getProject().getProjectName();
         this.requirements = new ArrayList<>();
         if (projectComponent.getRequirements() != null) {
             for (Requirement requirement : projectComponent.getRequirements()) {

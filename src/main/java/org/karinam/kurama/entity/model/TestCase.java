@@ -1,6 +1,5 @@
 package org.karinam.kurama.entity.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +11,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Table(name = "testCase")
 public class TestCase {
     @Id
@@ -20,30 +18,18 @@ public class TestCase {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-
-
     @Column(name = "test_case_name", nullable = false)
     private String testCaseName;
 
-    @Column(name = "isAutomated", nullable = false)
-    private boolean isAutomated;
+    @Column(name = "description", nullable = false)
+    private String description;
 
-    @Column(name = "result", nullable = false)
-    private String result;
+    @ManyToMany
+    @JoinTable(
+            name = "test_case_requirement",
+            joinColumns = @JoinColumn(name = "test_case_id"),
+            inverseJoinColumns = @JoinColumn(name = "requirement_id"))
+    private List<Requirement> requirements;
 
-    @Column(name = "environment", nullable = false)
-    private String environment;
-
-    @Column(name = "prerequisites", nullable = false)
-    private String prerequisites;
-
-    @Column(name = "post_condition", nullable = false)
-    private String postCondition;
-
-    @OneToMany(mappedBy="testCase")
-    private List<Steps> stepsList;
-
-    @ManyToMany(mappedBy = "testCases")
-    private List<Requirement> requirementsCovered;
 
 }

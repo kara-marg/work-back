@@ -4,15 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.karinam.kurama.entity.model.Requirement;
-import org.karinam.kurama.entity.model.TestCase;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class RequirementDTO {
+public class RequirementShortDTO {
     private Long id;
 
     private String name;
@@ -27,21 +23,14 @@ public class RequirementDTO {
 
     private String projectName;
 
-    private List<TestCaseDTO> testCases;
-
-    public RequirementDTO(Requirement requirement) {
+    public RequirementShortDTO(Requirement requirement) {
         this.id = requirement.getId();
         this.name = requirement.getRequirementName();
-        this.projectComponentId = requirement.getProjectComponent().getId();
+        this.description = requirement.getDescription();
         this.projectId = requirement.getProjectComponent().getProject().getId();
+        this.projectComponentId = requirement.getProjectComponent().getId();
         this.projectName = requirement.getProjectComponent().getProject().getProjectName();
         this.projectComponentName = requirement.getProjectComponent().getName();
-        this.description = requirement.getDescription();
-        this.testCases = new ArrayList<>();
-        if (requirement.getTestCases() != null) {
-            for (TestCase testCase : requirement.getTestCases()) {
-                this.testCases.add(new TestCaseDTO(testCase));
-            }
-        }
+
     }
 }
