@@ -2,10 +2,7 @@ package org.karinam.kurama.entity.model.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.karinam.kurama.entity.model.Project;
-import org.karinam.kurama.entity.model.ProjectComponent;
-import org.karinam.kurama.entity.model.Requirement;
-import org.karinam.kurama.entity.model.TestCase;
+import org.karinam.kurama.entity.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +25,7 @@ public class TestCaseDTO {
     private String projectComponentName;
 
     private List<RequirementShortDTO> requirementShortDTOList;
+    private List<StepDTO> steps;
 
 
     public TestCaseDTO(TestCase testCase) {
@@ -35,6 +33,7 @@ public class TestCaseDTO {
         this.name = testCase.getTestCaseName();
         this.description = testCase.getDescription();
         this.requirementShortDTOList = new ArrayList<>();
+        this.steps = new ArrayList<>();
         if (testCase.getRequirements() != null) {
             for (Requirement requirement : testCase.getRequirements()) {
                 this.requirementShortDTOList.add(new RequirementShortDTO(requirement));
@@ -47,6 +46,11 @@ public class TestCaseDTO {
                 ProjectComponent projectComponent = testCase.getRequirements().getFirst().getProjectComponent();
                 this.projectComponentId = projectComponent.getId();
                 this.projectComponentName = projectComponent.getName();
+            }
+        }
+        if (testCase.getSteps() != null) {
+            for (Step step : testCase.getSteps()) {
+                this.steps.add(new StepDTO(step));
             }
         }
 

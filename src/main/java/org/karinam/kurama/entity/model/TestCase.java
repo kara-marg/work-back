@@ -12,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "testCase")
-public class TestCase {
+public class
+TestCase {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -30,6 +31,9 @@ public class TestCase {
             joinColumns = @JoinColumn(name = "test_case_id"),
             inverseJoinColumns = @JoinColumn(name = "requirement_id"))
     private List<Requirement> requirements;
+
+    @OneToMany(mappedBy="testCase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Step> steps;
 
 
 }

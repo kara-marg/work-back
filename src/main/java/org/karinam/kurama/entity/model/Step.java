@@ -10,21 +10,24 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "steps")
-public class Steps {
+@Table(name = "step")
+public class Step {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="testCase_id", nullable=false)
+    @JoinColumn(name="test_case_id", nullable=false)
     @JsonIgnore
     private TestCase testCase;
 
-    @Column(name = "step", nullable = false)
-    private String step;
+    @Column(name = "action", nullable = false)
+    private String action;
 
     @Column(name = "expectedResult", nullable = false)
     private String expectedResult;
+
+    @Column(name = "step_number", nullable = false)
+    private Integer stepNumber;
 }

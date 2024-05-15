@@ -27,4 +27,11 @@ public class ProjectComponentController {
         return projectComponentService.getAllProjectComponentDTO();
     }
 
+    @GetMapping("/project/{projectId}")
+    public List<ProjectComponentDTO> getAllByProjectId(@PathVariable Long projectId){
+        return projectComponentService.getAllByProjectId(projectId);
+    }
+
+
+
 }

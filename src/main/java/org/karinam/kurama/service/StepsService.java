@@ -2,9 +2,8 @@ package org.karinam.kurama.service;
 
 import lombok.RequiredArgsConstructor;
 import org.karinam.kurama.entity.domain.exceptions.StepNotFoundException;
-import org.karinam.kurama.entity.model.Steps;
+import org.karinam.kurama.entity.model.Step;
 import org.karinam.kurama.repository.StepsRepository;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -12,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class StepsService {
     private final StepsRepository repository;
 
-    public Steps saveSteps(Steps steps){
-        return repository.save(steps);
+    public Step saveSteps(Step step){
+        return repository.save(step);
     }
 
-    public Steps getByStepsId(Long id){
+    public Step getByStepsId(Long id){
         return repository.findById(id).orElseThrow(() -> new StepNotFoundException(id));
     }
 }

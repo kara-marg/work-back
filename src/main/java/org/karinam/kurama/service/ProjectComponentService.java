@@ -42,4 +42,14 @@ public class ProjectComponentService {
         });
         return projectComponentDTOList;
     }
+
+    public List<ProjectComponentDTO> getAllByProjectId(Long projectId){
+        List<ProjectComponentDTO> projectComponentDTOList = new ArrayList<>();
+        List<ProjectComponent> projectComponentList = projectComponentRepository.findAllByProjectId(projectId, Sort.by(Sort.Direction.ASC,"id"));
+        projectComponentList.forEach(projectComponent -> {
+            ProjectComponentDTO projectComponentDTO = new ProjectComponentDTO(projectComponent);
+            projectComponentDTOList.add(projectComponentDTO);
+        });
+        return projectComponentDTOList;
+    }
 }
