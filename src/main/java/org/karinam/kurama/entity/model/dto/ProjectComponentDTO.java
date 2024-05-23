@@ -27,6 +27,8 @@ public class ProjectComponentDTO {
 
     private List<RequirementDTO> requirements;
 
+    private Double coverage;
+
     public ProjectComponentDTO(ProjectComponent projectComponent) {
         this.id = projectComponent.getId();
         this.name = projectComponent.getName();
@@ -40,6 +42,23 @@ public class ProjectComponentDTO {
                 this.requirements.add(new RequirementDTO(requirement));
             }
         }
+        calculateCoverage();
+    }
 
+    private void calculateCoverage(){
+        double requirementsNumber = this.requirements != null ? this.requirements.size() : 0;
+        if (requirementsNumber == 0 ) {
+            this.coverage = 0d;
+            return;
+        }
+
+        double coveredRequirements = 0;
+        for (RequirementDTO requirement : this.requirements) {
+            if (requirement.getTestCases() != null && !requirement.getTestCases().isEmpty()) {
+                coveredRequirements++;
+            }
+        }
+
+        this.coverage = (double) (coveredRequirements/requirementsNumber)*100;
     }
 }
